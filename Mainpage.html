@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do list</title>
-    <link rel="icon" type="image" href="Images/Tab_icon.png">
+    <link rel="icon" type="image/png" href="Images/Tab_icon.png">
     <link rel="stylesheet" href="Mainpage.css">
 </head>
 <body>
@@ -27,7 +27,7 @@
     </header>
     <!-- Main page -->
     <main>
-        <section>
+        <section class="Create_task">
             <!-- Start task -->
              <div class="NewTask">
              <p>Create new task</p>
@@ -38,17 +38,17 @@
         
     </section>
 
-    <section>
+    <section class="Dialog">
         <!-- <dialog class="DispDiag"> -->
             <form class="form" action="">               
                 <div class = "MainDivForm">  
                 <div class="label_Input">
-                <label for="Task type">Task type: </label>
-                <input type="text" placeholder="Enter your task type(Optional)">
+                <label for="Task">Task: </label>
+                <input type="text" placeholder="Enter your task">
             </div>
                 
                 <div class="label_Input">
-                <label for="TaskDescription">Task: </label>
+                <label for="TaskDescription">Task type: </label>
                 <input type="text" placeholder="Describe your task">
             </div>
                 
@@ -57,21 +57,57 @@
                 <input type="date" placeholder="Enter Date" required>
             </div>
                
-                <div class="label_Input" class="confirmation">
-                <button class="Btn1" class ="Confirm">✓</button>
-                <button class ="Btn2" class="Cancel">X</button>
+                <div class="label_Input confirmation">
+                <button class="Btn Confirm">✓</button>
+                <button class ="Btn Cancel">X</button>
+                <button class = "Btn Refresh">!</button>
             </div>
             </form>
+        </section>
+        <section class="tasks_section">
         <!-- </dialog> -->
-        <ol>
-            <li>Task1</li>       
-            <li>Task2</li>
-            <li>Task3</li>
-            <li>Task4</li>
-        </ol>
+       <div class="Tasks">
+        <div class="task_decrp">
+        <p class="Title">Task1</p>
+        <p class = "Description">Task description</p>
+    </div>
+        <p class = "details">Date due:</p>   
+       </div>
+    </section>
+
+    <section class="tasks_section">
+        <!-- </dialog> -->
+       <div class="Tasks">
+        <div class="task_decrp">
+        <p class="Title">Task2</p>
+        <p class = "Description">Task description</p>
+    </div>
+        <p class = "details">Date due:</p>   
+       </div>
+    </section>
+
+    <section class="tasks_section">
+        <!-- </dialog> -->
+       <div class="Tasks">
+        <div class="task_decrp">
+        <p class="Title">Task3</p>
+        <p class = "Description">Task description</p>
+    </div>
+        <p class = "details">Date due:</p>   
+       </div>
+    </section>
+
+    <section class="tasks_section">
+        <!-- </dialog> -->
+       <div class="Tasks">
+        <div class="task_decrp">
+        <p class="Title">Task4</p>
+        <p class = "Description">Task description</p>
+    </div>
+        <p class = "details">Date due:</p>   
+       </div>
     </section>
     </main>
-    <hr>
     <footer>
         <p>Stay productive!</p>   
     </footer>

@@ -54,6 +54,10 @@ color: white;
 }
 
 /* New Task  */
+.Create_task{
+    margin-left: 10px;
+}
+
 .NewTask{
 display: flex;
 flex-wrap: nowrap;
@@ -86,8 +90,12 @@ font-weight: 60px;
 }
 
 /* form */
+.Dialog{
+    margin-left: 10px;
+}
+
 form{
-    width: 70vw;
+    width: 70%;
 }
 
 .label_Input{
@@ -119,5 +127,64 @@ input:focus,input:focus-within{
 
 .confirmation{
 display: flex;
-align-items: center;
+align-items: start ;
+
+}
+
+.Btn{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 2px 2px 2px gray;
+}
+
+.Btn:hover{
+transform: scale(1.2);
+}
+
+.Confirm{
+    color: white;
+    background:linear-gradient(to right, var(--PRIMARY-COLOR),var(--SECONDARY-COLOR));
+}
+
+.Cancel{
+    color: white;
+    background: linear-gradient(to right, red,rgb(206, 0, 0));
+}
+
+.Refresh{
+    color: black;
+    background: rgb(82, 201, 82);
+}
+
+/* List items */
+.tasks_section{
+   margin-left: 10px; 
+   margin-bottom: 10px;
+}
+
+.Tasks{
+    color: white;
+    background-color: rgb(138, 138, 138);
+    width: 70vw;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.task_decrp{
+    background: linear-gradient(to right, var(--PRIMARY-COLOR),var(--SECONDARY-COLOR));
+    border-top-right-radius: 20px;
+}
+
+.Description{
+    font-size: 10px;
+}
+
+
+footer{
+    margin-top: 20px;
+    margin-left: 10px;
+    font-weight: 5px;
 }
