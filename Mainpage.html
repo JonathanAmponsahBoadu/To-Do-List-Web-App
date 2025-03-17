@@ -31,15 +31,15 @@
             <!-- Start task -->
              <div class="NewTask">
              <p>Create new task</p>
-             <Button class="CreateTaskButton">
+             <Button class="CreateTaskButton" type="button">
                 +
              </Button>
             </div>
         
     </section>
 
-    <section class="Dialog">
-        <!-- <dialog class="DispDiag"> -->
+    <section class="dialog">
+        <dialog class="DispDiag">
             <form class="form" action="">               
                 <div class = "MainDivForm">  
                 <div class="label_Input">
@@ -58,14 +58,15 @@
             </div>
                
                 <div class="label_Input confirmation">
-                <button class="Btn Confirm">✓</button>
-                <button class ="Btn Cancel">X</button>
-                <button class = "Btn Refresh">!</button>
+                <button class="Btn Confirm" type="submit">✓</button>
+                <button class ="Btn Cancel" type="button">X</button>
+                <button class = "Btn Refresh" type="reset"><img src="Images/Refreshbtn.jpg" alt=""></button>
             </div>
+            </dialog>
             </form>
         </section>
         <section class="tasks_section">
-        <!-- </dialog> -->
+        
        <div class="Tasks">
         <div class="task_decrp">
         <p class="Title">Task1</p>
@@ -76,7 +77,7 @@
     </section>
 
     <section class="tasks_section">
-        <!-- </dialog> -->
+        </dialog>
        <div class="Tasks">
         <div class="task_decrp">
         <p class="Title">Task2</p>
@@ -111,5 +112,6 @@
     <footer>
         <p>Stay productive!</p>   
     </footer>
+    <script src="Mainpage.js" defer></script>
 </body>
 </html>

@@ -98,6 +98,16 @@ form{
     width: 70%;
 }
 
+.DispDiag{
+    width: 400px;
+    height: 250px;
+    align-self: center;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 2px solid var(--PRIMARY-COLOR);
+}
+
 .label_Input{
 display: flex;
 flex-wrap: nowrap;
@@ -156,6 +166,11 @@ transform: scale(1.2);
 .Refresh{
     color: black;
     background: rgb(82, 201, 82);
+}
+.Refresh,img{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
 }
 
 /* List items */
