@@ -1,0 +1,59 @@
+/* variables */
+:root{
+--PRIMARY-COLOR:rgb(0, 110, 255);
+--SECONDARY-COLOR:rgb(1, 53, 121);
+--SECONDARY-FONT: Shrikhand-Regular; 
+}
+
+/* Define font */
+@font-face{
+    font-family: Shrikhand-Regular;
+    src:url(Fonts/Shrikhand-Regular.ttf)
+    format("truetype");
+}
+
+/* General style */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+/* Main header display */
+.head{
+    margin-bottom: 20px;
+    background: linear-gradient(to right,var(--PRIMARY-COLOR),var(--SECONDARY-COLOR));
+    width: 100vw;
+    height: max-content;
+    padding: 10px;
+}
+/* header */
+/* Frst line of header (h2 and img) */
+.First_line{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 20px;
+}
+
+/* header */
+/* image only */
+.Home_image,img{
+    margin-top: 5px;
+}
+/* header */
+/* first line only */
+.title{
+color: white;
+}
+
+/* header */
+/* Second line */
+.sub_title{
+    color: white;
+    margin-top: 5px;
+    margin-left: 45px;
+    font-family: var(--SECONDARY-FONT);
+    font-weight: lighter;
+}
