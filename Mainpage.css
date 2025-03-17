@@ -34,14 +34,15 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    align-items: center;
     gap: 20px;
 }
 
 /* header */
 /* image only */
-.Home_image,img{
+/* .Home_image,img{
     margin-top: 5px;
-}
+} */
 /* header */
 /* first line only */
 .title{
@@ -56,4 +57,30 @@ color: white;
     margin-left: 45px;
     font-family: var(--SECONDARY-FONT);
     font-weight: lighter;
+}
+
+/* New Task  */
+.NewTask{
+display: flex;
+flex-wrap: nowrap;
+align-items: center;
+column-gap: 20px;
+}
+/* New Task/sentence */
+.NewTask,p{
+    font-weight: bold;
+    font-size: large;
+}
+
+
+/* New Task/Button */
+.CreateTaskButton{
+color: var(--PRIMARY-COLOR);
+width: 30px;
+height: 30px;
+border-radius: 50%;
+border: 2px  var(--PRIMARY-COLOR);
+box-shadow: 2px 3px 5px var(--PRIMARY-COLOR);
+font-size: 30px;
+font-weight: 60px;
 }
