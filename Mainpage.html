@@ -38,23 +38,23 @@
         
     </section>
 
-    <section class="dialog">
+    <section class="Dialog">
         <dialog class="DispDiag">
             <form class="form" action="">               
                 <div class = "MainDivForm">  
                 <div class="label_Input">
                 <label for="Task">Task: </label>
-                <input type="text" placeholder="Enter your task" required>
+                <input class="taskField" type="text" placeholder="Enter your task" required>
             </div>
                 
                 <div class="label_Input">
                 <label for="TaskDescription">Task type: </label>
-                <input type="text" placeholder="Describe your task">
+                <input class="taskTypeField" type="text" placeholder="Describe your task">
             </div>
                 
                 <div class="label_Input">
                 <label for="DueDate">Date due: </label>
-                <input class="Date" type="date" placeholder="Enter Date">
+                <input class="dateField" type="date" placeholder="Enter Date">
             </div>
                
                 <div class="label_Input confirmation">
@@ -65,52 +65,43 @@
             </dialog>
             </form>
         </section>
+       
         <section class="tasks_section">
-        
-       <div class="Tasks">
+        <ul class="unorderedList">
+        <!-- <li class="Tasks">
+       
         <div class="task_decrp">
         <p class="Title">Task1</p>
-        <p class = "Description">Task description</p>
+        <p class = "Description">Task type</p>
     </div>
         <p class = "details">Date due:</p>   
-       </div>
+       
+    </li>
+    <li class="Tasks">
+        
+         <div class="task_decrp">
+         <p class="Title">Task1</p>
+         <p class = "Description">Task type</p>
+     </div>
+         <p class = "details">Date due:</p>   
+        
+     </li>
+     <li class="Tasks">
+        
+         <div class="task_decrp">
+         <p class="Title">Task1</p>
+         <p class = "Description">Task type</p>
+     </div>
+         <p class = "details">Date due:</p>   
+        
+     </li> -->
+    </ul>
     </section>
 
-    <section class="tasks_section">
-        </dialog>
-       <div class="Tasks">
-        <div class="task_decrp">
-        <p class="Title">Task2</p>
-        <p class = "Description">Task description</p>
-    </div>
-        <p class = "details">Date due:</p>   
-       </div>
-    </section>
 
-    <section class="tasks_section">
-        <!-- </dialog> -->
-       <div class="Tasks">
-        <div class="task_decrp">
-        <p class="Title">Task3</p>
-        <p class = "Description">Task description</p>
-    </div>
-        <p class = "details">Date due:</p>   
-       </div>
-    </section>
-
-    <section class="tasks_section">
-        <!-- </dialog> -->
-       <div class="Tasks">
-        <div class="task_decrp">
-        <p class="Title">Task4</p>
-        <p class = "Description">Task description</p>
-    </div>
-        <p class = "details">Date due:</p>   
-       </div>
-    </section>
     </main>
     <footer>
-        <p>Stay productive!</p>   
+        <p>Stay productive! 💪</p>   
     </footer>
     <script src="Mainpage.js" defer></script>
 </body>

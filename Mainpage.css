@@ -91,19 +91,23 @@ font-weight: 60px;
 
 /* form */
 .Dialog{
-    margin-left: 10px;
+    margin-left: 200px;
+
 }
 
 form{
     width: 70%;
+    
 }
 
 .DispDiag{
+    position: absolute;
+    left: 100px;
     width: 400px;
     height: 250px;
     align-self: center;
     padding: 20px;
-    margin: 10px;
+    margin: 20px;
     border-radius: 10px;
     border: 2px solid var(--PRIMARY-COLOR);
 }
@@ -119,7 +123,7 @@ margin-bottom: 20px;
 
 
 input{
-    width: 50vw;
+    width: 250px;
     height: 30px;
     padding: 5px;
     display: flex;
@@ -130,7 +134,6 @@ input{
     border: 1px solid gray;
     position: absolute;
     left: 120px;
-
 }
 
 input:focus,input:focus-within{
@@ -187,13 +190,54 @@ transform: scale(1.2);
     background-color: rgb(138, 138, 138);
     width: 70vw;
     border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    /* border-top-right-radius: 20px; */
     border-bottom-right-radius: 20px;
+    position: relative;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
+
+.Tasks::before{
+    content: "";
+    background-image: url(Images/square.png);
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    width: 13px;
+    height: 13px;
+    display: block;
+    position: absolute;
+    top: 15px;
+    left: 2px;
+}
+
+.Tasks .task_decrp{
+    text-decoration: line-through;
+}
+
+.Tasks .task_decrp::before{
+content: "";
+background-image: url(Images/Tab_icon.png);
+background-size: cover;
+border-radius: 50%;
+width: 13px;
+height: 13px;
+display: block;
+position: absolute;
+top: 15px;
+left: 2px;
+}
+
 
 .task_decrp{
     background: linear-gradient(to right, var(--PRIMARY-COLOR),var(--SECONDARY-COLOR));
-    border-top-right-radius: 20px;
+    /* border-top-right-radius: 20px; */
+    
+}
+
+.task_decrp,.details{
+    margin-left: 20px;
+    padding: 10px;
 }
 
 .Description{
