@@ -197,8 +197,7 @@ transform: scale(1.2);
     cursor: pointer;
 }
 
-.Tasks::before{
-    content: "";
+.circle{
     background-image: url(Images/square.png);
     background-color: white;
     border: none;
@@ -211,11 +210,24 @@ transform: scale(1.2);
     left: 2px;
 }
 
-.Tasks .task_decrp{
+.circle.completed{
+    background-image: url(Images/Tab_icon.png);
+    background-size: cover;
+    border: none;
+    border-radius: 50%;
+    width: 13px;
+    height: 13px;
+    display: block;
+    position: absolute;
+    top: 15px;
+    left: 2px;
+}
+
+.Tasks.completed .task_decrp{
     text-decoration: line-through;
 }
 
-.Tasks .task_decrp::before{
+/* .Tasks .completed .task_decrp::before{
 content: "";
 background-image: url(Images/Tab_icon.png);
 background-size: cover;
@@ -226,8 +238,18 @@ display: block;
 position: absolute;
 top: 15px;
 left: 2px;
-}
+} */
 
+.delete{
+    border: none;
+    border-radius: 50%;
+    background-color: red;
+    position: absolute;
+    padding: 2px;
+    top: 15px;
+    right: 2px;
+    margin-right: 5px;
+}
 
 .task_decrp{
     background: linear-gradient(to right, var(--PRIMARY-COLOR),var(--SECONDARY-COLOR));

@@ -47,8 +47,8 @@ confirmBtn.addEventListener("click",(event) =>{
     const task_description = document.createElement("div");
     task_description.classList.add("task_decrp");
 
-    // const circle = document.createElement("span");
-    // circle.classList.add("")
+    const circleBtn = document.createElement("span");
+    circleBtn.classList.add("circle")
 
     const taskTitle = document.createElement("p");
     taskTitle.classList.add("Title");
@@ -58,19 +58,30 @@ confirmBtn.addEventListener("click",(event) =>{
     taskType.classList.add("Description");
     taskType.textContent = newtaskDescp;
 
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("delete");
+    deleteBtn.textContent = "🗑️";
+
     const date = document.createElement("p");
     date.classList.add("details");
     date.textContent = newDate;
 
-    // taskSection.appendChild(uList);
-    // uList.appendChild(taskList);
-    // taskList.appendChild(task_description);
-    // task_description.appendChild(taskTitle);
-    // task_description.appendChild(taskType);
-    // taskList.appendChild(date);
+    //checking and unchecking event
+    circleBtn.addEventListener("click",()=>{
+    circleBtn.classList.toggle("completed");
+    taskList.classList.toggle("completed")
+    });
 
+    //Deleting an event
+    deleteBtn.addEventListener("click",(e)=>{
+    taskList.remove();
+    });
+
+    //Displaying the events
+    task_description.appendChild(circleBtn);
     task_description.appendChild(taskTitle);
     task_description.appendChild(taskType);
+    task_description.appendChild(deleteBtn);
     taskList.appendChild(task_description);
     taskList.appendChild(date);
     uList.appendChild(taskList);
