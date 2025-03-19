@@ -92,4 +92,4 @@ confirmBtn.addEventListener("click",(event) =>{
 
     dialog.close();
 
-})
+});

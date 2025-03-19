@@ -227,19 +227,6 @@ transform: scale(1.2);
     text-decoration: line-through;
 }
 
-/* .Tasks .completed .task_decrp::before{
-content: "";
-background-image: url(Images/Tab_icon.png);
-background-size: cover;
-border-radius: 50%;
-width: 13px;
-height: 13px;
-display: block;
-position: absolute;
-top: 15px;
-left: 2px;
-} */
-
 .delete{
     border: none;
     border-radius: 50%;
