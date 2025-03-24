@@ -22,24 +22,7 @@ closeBtn.addEventListener("click",()=>{
     dialog.close();
 });
 
-confirmBtn.addEventListener("click",(event) =>{
-    event.preventDefault();
-    
-    const newtask = taskField.value.trim();
-    const newtaskDescp = taskTypeField.value.trim();
-    const newDate = dateField.value
-
-    if(newtask.trim()===""){
-        alert("Task field must be filled");
-        return;
-    };
-
-
-    //elements creation
-    // const taskSection = document.createElement("div");
-    // taskSection.classList.add("tasks_section");
-
-    // const uList = document.createElement("ul");
+const createNewTask = (task,description,dateItem) =>{
 
     const taskList = document.createElement("li");
     taskList.classList.add("Tasks");
@@ -52,11 +35,11 @@ confirmBtn.addEventListener("click",(event) =>{
 
     const taskTitle = document.createElement("p");
     taskTitle.classList.add("Title");
-    taskTitle.textContent = newtask;
+    taskTitle.textContent = task;
     
     const taskType = document.createElement("p");
     taskType.classList.add("Description");
-    taskType.textContent = newtaskDescp;
+    taskType.textContent = description;
 
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete");
@@ -64,17 +47,19 @@ confirmBtn.addEventListener("click",(event) =>{
 
     const date = document.createElement("p");
     date.classList.add("details");
-    date.textContent = newDate;
+    date.textContent = dateItem;
 
     //checking and unchecking event
     circleBtn.addEventListener("click",()=>{
     circleBtn.classList.toggle("completed");
     taskList.classList.toggle("completed")
+    saveTask();
     });
 
     //Deleting an event
     deleteBtn.addEventListener("click",(e)=>{
     taskList.remove();
+    saveTask();
     });
 
     //Displaying the events
@@ -86,10 +71,74 @@ confirmBtn.addEventListener("click",(event) =>{
     taskList.appendChild(date);
     uList.appendChild(taskList);
 
+};
+
+confirmBtn.addEventListener("click",(event) =>{
+    event.preventDefault();
+    
+    const newtask = taskField.value.trim();
+    const newtaskDescp = taskTypeField.value.trim();
+    const newDate = dateField.value
+
+    if(newtask.trim()===""){
+        alert("Task field must be filled");  
+        return;
+    };
+
+
+    createNewTask(newtask,newtaskDescp,newDate);
+    //elements creation
+    // const taskSection = document.createElement("div");
+    // taskSection.classList.add("tasks_section");
+
+    // const uList = document.createElement("ul");
+
+
+
     taskField.value = "";
     taskTypeField.value = "";
 
 
     dialog.close();
 
+    saveTask();
+
 });
+
+
+
+
+const saveTask =()=>{
+    const tasks = [];
+    const AlltaskItems = uList.querySelectorAll(".Tasks");
+    AlltaskItems.forEach((taskItem) =>{
+       const  taskName = taskItem.querySelector(".Title").textContent;
+       const  taskDescription = taskItem.querySelector(".Description").textContent;
+       const  taskDate = taskItem.querySelector(".details").textContent;
+       const completed = taskItem.classList.contains("completed");
+
+    tasks.push({task:taskName,description:taskDescription,date:taskDate,completed});
+    })
+
+    localStorage.setItem("tasks",JSON.stringify(tasks))
+};
+
+const loadTasks = () =>{
+    const storedTasks = localStorage.getItem("tasks");
+    if(!storedTasks){return;};
+    const saved = JSON.parse(storedTasks);
+    
+        saved.forEach(({task,description,date,completed})=>{
+            createNewTask(task,description,date);
+            const taskItem = uList.lastElementChild;
+            if(completed){
+                taskItem.classList.add("completed");
+                taskItem.querySelector(".circle").classList.add("completed");
+            }
+        });
+    
+
+}
+
+window.addEventListener("DOMContentLoaded",loadTasks);
+
