@@ -1,0 +1,24 @@
+{
+  "name": "todo_app",
+  "version": "1.0.0",
+  "main": "Mainpage.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonathanAmponsahBoadu/To-Do-List-Web-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonathanAmponsahBoadu/To-Do-List-Web-App/issues"
+  },
+  "homepage": "https://github.com/JonathanAmponsahBoadu/To-Do-List-Web-App#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
