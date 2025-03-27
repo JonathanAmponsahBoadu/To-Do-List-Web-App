@@ -1,0 +1,16 @@
+
+
+div{
+    border: 2px solid red;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    /* height: 100vh; */
+}
+
+h1{
+    font-size: 100px;
+}

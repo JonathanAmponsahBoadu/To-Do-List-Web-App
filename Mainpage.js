@@ -1,14 +1,10 @@
 const dialog = document.querySelector(".DispDiag");
 const openBtn = document.querySelector(".CreateTaskButton");
 const closeBtn = document.querySelector(".Cancel");
-
 const confirmBtn = document.querySelector(".Confirm");
-// Dialog box
 const taskField = document.querySelector(".taskField");
 const taskTypeField = document.querySelector(".taskTypeField");
 const dateField = document.querySelector(".dateField");
-//elements field
-// const taskSection = document.querySelector(".tasks_section");
 const uList = document.querySelector(".unorderedList");
 
 openBtn.addEventListener("click", () => {
@@ -21,15 +17,47 @@ closeBtn.addEventListener("click", () => {
   dialog.close();
 });
 
-const createNewTask = (task, description, dateItem) => {
+// Fetch tasks from server
+const loadTasks = async () => {
+  try {
+    const response = await fetch("/tasks");
+    const tasks = await response.json();
+
+    uList.innerHTML = ""; // Clear UI before reloading
+    tasks.forEach(({ id, task, description, date, completed }) => {
+      createNewTask(task, description, date, id, completed);
+    });
+  } catch (error) {
+    console.error("Error loading tasks:", error);
+  }
+};
+
+// Save new task
+const saveTask = async (taskData) => {
+  try {
+    const response = await fetch("/tasks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(taskData),
+    });
+    if (response.ok) loadTasks();
+  } catch (error) {
+    console.error("Error saving task:", error);
+  }
+};
+
+// Modify `createNewTask` to include task ID
+const createNewTask = (task, description, date, id, completed = false) => {
   const taskList = document.createElement("li");
   taskList.classList.add("Tasks");
+  if (completed) taskList.classList.add("completed");
 
   const task_description = document.createElement("div");
   task_description.classList.add("task_decrp");
 
   const circleBtn = document.createElement("span");
   circleBtn.classList.add("circle");
+  if (completed) circleBtn.classList.add("completed");
 
   const taskTitle = document.createElement("p");
   taskTitle.classList.add("Title");
@@ -43,33 +71,48 @@ const createNewTask = (task, description, dateItem) => {
   deleteBtn.classList.add("delete");
   deleteBtn.textContent = "🗑️";
 
-  const date = document.createElement("p");
-  date.classList.add("details");
-  date.textContent = dateItem;
+  const dateItem = document.createElement("p");
+  dateItem.classList.add("details");
+  dateItem.textContent = date;
 
-  //checking and unchecking event
-  circleBtn.addEventListener("click", () => {
-    circleBtn.classList.toggle("completed");
+  // Toggle completion
+  circleBtn.addEventListener("click", async () => {
     taskList.classList.toggle("completed");
-    saveTask();
+    circleBtn.classList.toggle("completed");
+
+    try {
+      await fetch(`/tasks/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          completed: taskList.classList.contains("completed"),
+        }),
+      });
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
   });
 
-  //Deleting an event
-  deleteBtn.addEventListener("click", (e) => {
-    taskList.remove();
-    saveTask();
+  // Delete task
+  deleteBtn.addEventListener("click", async () => {
+    try {
+      await fetch(`/tasks/${id}`, { method: "DELETE" });
+      taskList.remove();
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
   });
 
-  //Displaying the events
   task_description.appendChild(circleBtn);
   task_description.appendChild(taskTitle);
   task_description.appendChild(taskType);
   task_description.appendChild(deleteBtn);
   taskList.appendChild(task_description);
-  taskList.appendChild(date);
+  taskList.appendChild(dateItem);
   uList.appendChild(taskList);
 };
 
+// Submit new task
 confirmBtn.addEventListener("click", (event) => {
   event.preventDefault();
 
@@ -77,61 +120,22 @@ confirmBtn.addEventListener("click", (event) => {
   const newtaskDescp = taskTypeField.value.trim();
   const newDate = dateField.value;
 
-  if (newtask.trim() === "") {
+  if (newtask === "") {
     alert("Task field must be filled");
     return;
   }
 
-  createNewTask(newtask, newtaskDescp, newDate);
-  //elements creation
-  // const taskSection = document.createElement("div");
-  // taskSection.classList.add("tasks_section");
-
-  // const uList = document.createElement("ul");
+  saveTask({
+    task: newtask,
+    description: newtaskDescp,
+    date: newDate,
+    completed: false,
+  });
 
   taskField.value = "";
   taskTypeField.value = "";
-
   dialog.close();
-
-  saveTask();
 });
 
-const saveTask = () => {
-  const tasks = [];
-  const AlltaskItems = uList.querySelectorAll(".Tasks");
-  AlltaskItems.forEach((taskItem) => {
-    const taskName = taskItem.querySelector(".Title").textContent;
-    const taskDescription = taskItem.querySelector(".Description").textContent;
-    const taskDate = taskItem.querySelector(".details").textContent;
-    const completed = taskItem.classList.contains("completed");
-
-    tasks.push({
-      task: taskName,
-      description: taskDescription,
-      date: taskDate,
-      completed,
-    });
-  });
-
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-};
-
-const loadTasks = () => {
-  const storedTasks = localStorage.getItem("tasks");
-  if (!storedTasks) {
-    return;
-  }
-  const saved = JSON.parse(storedTasks);
-
-  saved.forEach(({ task, description, date, completed }) => {
-    createNewTask(task, description, date);
-    const taskItem = uList.lastElementChild;
-    if (completed) {
-      taskItem.classList.add("completed");
-      taskItem.querySelector(".circle").classList.add("completed");
-    }
-  });
-};
-
+// Load tasks on page load
 window.addEventListener("DOMContentLoaded", loadTasks);
