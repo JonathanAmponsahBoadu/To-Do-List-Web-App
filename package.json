@@ -19,6 +19,7 @@
   "homepage": "https://github.com/JonathanAmponsahBoadu/To-Do-List-Web-App#readme",
   "description": "",
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "pg": "^8.14.1"
   }
 }

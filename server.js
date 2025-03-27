@@ -1,10 +1,17 @@
 const express = require("express");
-const fs = require("fs");
+const { Pool } = require("pg");
 const path = require("path");
 const app = express();
 
 const PORT = 3000;
-const DATA_FILE = path.join(__dirname, "tasks.json");
+
+const pool = new Pool({
+  user: "postgres",
+  host: "localhost",
+  database: "tasks",
+  password: "1234",
+  port: 5432,
+});
 
 app.use(express.static(__dirname));
 app.use(express.json());
@@ -17,78 +24,75 @@ app.get("/Mainpage(.html)?", (req, res) => {
   res.sendFile(path.join(__dirname, "Mainpage.html"));
 });
 
-app.get("/tasks", (req, res) => {
-  fs.readFile(DATA_FILE, "utf8", (err, data) => {
-    if (err) return res.status(500).json({ error: "Error reading tasks file" });
-    try {
-      const tasks = data ? JSON.parse(data) : [];
-      res.json(tasks);
-    } catch (parseErr) {
-      console.error("Error parsing JSON:", parseErr);
-      res.status(500).send("Error parsing tasks file.");
-    }
-  });
+app.get("/tasks", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM tasks ORDER BY id ASC");
+    const formattedTasks = result.rows.map((task) => ({
+      ...task,
+      date: task.date.toISOString().split("T")[0],
+    }));
+    res.json(formattedTasks);
+  } catch (error) {
+    console.error("Error fetching tasks:", error);
+    res.status(500).json({ error: "Error fetching tasks" });
+  }
 });
 
-app.post("/tasks", (req, res) => {
-  const newTask = req.body;
-  fs.readFile(DATA_FILE, "utf8", (err, data) => {
-    if (err) return res.status(500).json({ error: "Error reading tasks file" });
-
-    let tasks;
-    try {
-      tasks = data ? JSON.parse(data) : [];
-    } catch (parseErr) {
-      console.error("Error parsing JSON:", parseErr);
-      tasks = [];
-    }
-    newTask.id = tasks.length ? tasks[tasks.length - 1].id + 1 : 1;
-    tasks.push(newTask);
-
-    fs.writeFile(DATA_FILE, JSON.stringify(tasks, null, 2), (err) => {
-      if (err)
-        return res.status(500).json({ error: "Error writing tasks file" });
-      res.json(newTask);
-    });
-  });
+app.post("/tasks", async (req, res) => {
+  const { task, description, date, completed } = req.body;
+  try {
+    const result = await pool.query(
+      "INSERT INTO tasks (task, description, date, completed) VALUES ($1, $2, $3, $4) RETURNING *",
+      [task, description, date, completed]
+    );
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error adding task:", error);
+    res.status(500).json({ error: "Error adding task" });
+  }
 });
 
-app.put("/tasks/:id", (req, res) => {
+// Update a task
+app.put("/tasks/:id", async (req, res) => {
   const taskId = parseInt(req.params.id);
-  const updatedTask = req.body;
+  const { completed } = req.body;
 
-  fs.readFile(DATA_FILE, "utf8", (err, data) => {
-    if (err) return res.status(500).json({ error: "Error reading tasks file" });
-    let tasks = JSON.parse(data);
-    let taskIndex = tasks.findIndex((task) => task.id === taskId);
-    if (taskIndex === -1)
+  try {
+    const result = await pool.query(
+      "UPDATE tasks SET completed = $1 WHERE id = $2 RETURNING *",
+      [completed, taskId]
+    );
+
+    if (result.rows.length === 0) {
       return res.status(404).json({ error: "Task not found" });
+    }
 
-    tasks[taskIndex] = { ...tasks[taskIndex], ...updatedTask };
-
-    fs.writeFile(DATA_FILE, JSON.stringify(tasks, null, 2), (err) => {
-      if (err)
-        return res.status(500).json({ error: "Error writing tasks file" });
-      res.json(tasks[taskIndex]);
-    });
-  });
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error updating task:", error);
+    res.status(500).json({ error: "Error updating task" });
+  }
 });
 
-app.delete("/tasks/:id", (req, res) => {
+// Delete a task
+app.delete("/tasks/:id", async (req, res) => {
   const taskId = parseInt(req.params.id);
 
-  fs.readFile(DATA_FILE, "utf8", (err, data) => {
-    if (err) return res.status(500).json({ error: "Error reading tasks file" });
+  try {
+    const result = await pool.query(
+      "DELETE FROM tasks WHERE id = $1 RETURNING *",
+      [taskId]
+    );
 
-    let tasks = JSON.parse(data);
-    let filteredTasks = tasks.filter((task) => task.id !== taskId);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Task not found" });
+    }
 
-    fs.writeFile(DATA_FILE, JSON.stringify(filteredTasks, null, 2), (err) => {
-      if (err)
-        return res.status(500).json({ error: "Error writing tasks file" });
-      res.json({ message: "Task deleted" });
-    });
-  });
+    res.json({ message: "Task deleted" });
+  } catch (error) {
+    console.error("Error deleting task:", error);
+    res.status(500).json({ error: "Error deleting task" });
+  }
 });
 
 app.use((req, res) => {
