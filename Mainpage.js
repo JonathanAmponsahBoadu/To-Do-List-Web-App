@@ -17,13 +17,12 @@ closeBtn.addEventListener("click", () => {
   dialog.close();
 });
 
-// Fetch tasks from server
 const loadTasks = async () => {
   try {
     const response = await fetch("/tasks");
     const tasks = await response.json();
 
-    uList.innerHTML = ""; // Clear UI before reloading
+    uList.innerHTML = "";
     tasks.forEach(({ id, task, description, date, completed }) => {
       createNewTask(task, description, date, id, completed);
     });
@@ -32,7 +31,6 @@ const loadTasks = async () => {
   }
 };
 
-// Save new task
 const saveTask = async (taskData) => {
   try {
     const response = await fetch("/tasks", {
@@ -46,7 +44,6 @@ const saveTask = async (taskData) => {
   }
 };
 
-// Modify `createNewTask` to include task ID
 const createNewTask = (task, description, date, id, completed = false) => {
   const taskList = document.createElement("li");
   taskList.classList.add("Tasks");
@@ -75,7 +72,6 @@ const createNewTask = (task, description, date, id, completed = false) => {
   dateItem.classList.add("details");
   dateItem.textContent = date;
 
-  // Toggle completion
   circleBtn.addEventListener("click", async () => {
     taskList.classList.toggle("completed");
     circleBtn.classList.toggle("completed");
@@ -93,7 +89,6 @@ const createNewTask = (task, description, date, id, completed = false) => {
     }
   });
 
-  // Delete task
   deleteBtn.addEventListener("click", async () => {
     try {
       await fetch(`/tasks/${id}`, { method: "DELETE" });
@@ -112,7 +107,6 @@ const createNewTask = (task, description, date, id, completed = false) => {
   uList.appendChild(taskList);
 };
 
-// Submit new task
 confirmBtn.addEventListener("click", (event) => {
   event.preventDefault();
 
