@@ -137,5 +137,4 @@ confirmBtn.addEventListener("click", (event) => {
   dialog.close();
 });
 
-// Load tasks on page load
 window.addEventListener("DOMContentLoaded", loadTasks);
