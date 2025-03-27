@@ -74,7 +74,6 @@ app.put("/tasks/:id", (req, res) => {
   });
 });
 
-// Delete a task
 app.delete("/tasks/:id", (req, res) => {
   const taskId = parseInt(req.params.id);
 
@@ -92,12 +91,10 @@ app.delete("/tasks/:id", (req, res) => {
   });
 });
 
-// 404 Page
 app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, "404.html"));
 });
 
-// Start server
 app.listen(PORT, () => {
   console.log(`App running on http://localhost:${PORT}`);
 });
