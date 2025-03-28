@@ -58,7 +58,8 @@ const updateTask = async (id, task) => {
   try {
     await fetch(`/tasks/${id}`, {
       method: "PUT",
-      body: task.classList.contains("completed"),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ completed: task.classList.contains("completed") }),
     });
   } catch (err) {
     console.error("error updating tasks");
