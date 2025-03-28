@@ -52,7 +52,6 @@ app.post("/tasks", async (req, res) => {
   }
 });
 
-// Update a task
 app.put("/tasks/:id", async (req, res) => {
   const taskId = parseInt(req.params.id);
   const { completed } = req.body;
@@ -64,7 +63,7 @@ app.put("/tasks/:id", async (req, res) => {
     );
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Task not found" });
+      return res.status(500).json({ error: "Task not found" });
     }
 
     res.json(result.rows[0]);
@@ -74,7 +73,6 @@ app.put("/tasks/:id", async (req, res) => {
   }
 });
 
-// Delete a task
 app.delete("/tasks/:id", async (req, res) => {
   const taskId = parseInt(req.params.id);
 
@@ -85,7 +83,7 @@ app.delete("/tasks/:id", async (req, res) => {
     );
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Task not found" });
+      return res.status(500).json({ error: "Task not found" });
     }
 
     res.json({ message: "Task deleted" });

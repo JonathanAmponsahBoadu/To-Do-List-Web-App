@@ -44,6 +44,27 @@ const saveTask = async (taskData) => {
   }
 };
 
+const deleteTask = async (id) => {
+  try {
+    await fetch(`/tasks/${id}`, {
+      method: "DELETE",
+    });
+  } catch (err) {
+    console.error("error deleting task");
+  }
+};
+
+const updateTask = async (id, task) => {
+  try {
+    await fetch(`/tasks/${id}`, {
+      method: "PUT",
+      body: task.classList.contains("completed"),
+    });
+  } catch (err) {
+    console.error("error updating tasks");
+  }
+};
+
 const createNewTask = (task, description, date, id, completed = false) => {
   const taskList = document.createElement("li");
   taskList.classList.add("Tasks");
@@ -76,26 +97,12 @@ const createNewTask = (task, description, date, id, completed = false) => {
     taskList.classList.toggle("completed");
     circleBtn.classList.toggle("completed");
 
-    try {
-      await fetch(`/tasks/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          completed: taskList.classList.contains("completed"),
-        }),
-      });
-    } catch (error) {
-      console.error("Error updating task:", error);
-    }
+    updateTask(id, taskList);
   });
 
-  deleteBtn.addEventListener("click", async () => {
-    try {
-      await fetch(`/tasks/${id}`, { method: "DELETE" });
-      taskList.remove();
-    } catch (error) {
-      console.error("Error deleting task:", error);
-    }
+  deleteBtn.addEventListener("click", (err) => {
+    deleteTask(id);
+    taskList.remove();
   });
 
   task_description.appendChild(circleBtn);
